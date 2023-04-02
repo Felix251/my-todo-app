@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { FC } from 'react'
+import { BrowserRouter as Router, Routes,Route } from 'react-router-dom'
+import TodoForm from './Pages/todoForm'
+import TodoList from './Pages/todoList'
 
-function App() {
+
+
+const App: FC = () => {
+  interface Tache {
+    id: number,
+    nom: string,
+    dateCreation: Date,
+    isCompleted: boolean
+  }
+  const onAdd = () => {
+
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100vw', height: '70vh'}} >
+      <Router>
+        <Routes>
+          <Route path="/"  element={<TodoList/>}/>
+          <Route path="/addToDo"  element={<TodoForm />}/>
+        </Routes>
+      </Router>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
