@@ -57,21 +57,37 @@
 //     </FormContainer>
 //   );
 // };
-import React, { FC, useState } from 'react'
+import React, { ChangeEvent, FC, useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FaPlus } from "react-icons/fa";
 import { useSelector, useDispatch } from 'react-redux'
 import type { RootState } from '../../Redux/store'
 import { addToDo  } from '../../Redux/todoSlice'
+import { useAddTodoMutation } from '../../services/api/todos';
+import uuid from 'react-uuid';
 
 const TodoForm: FC = () => {
-  const [nom, setnom] = useState<string>('');
+  const [text, settext] = useState<string>('');
   const navigate = useNavigate();
   const dispatch = useDispatch()
-  const onSubmit = () => {
-    dispatch(addToDo(nom));
-    navigate("/");
+  // const onSubmit = () => {
+  //   dispatch(addToDo(text));
+  //   navigate("/");
+  // }
+  const handlechange = (e: ChangeEvent<HTMLInputElement>) => {
+    settext(e.target.value)
+
+  } 
+  const [addTodo] = useAddTodoMutation();
+  const onSubmit = () => { 
+    addTodo({
+      id: uuid(),
+      nom: text,
+      dateCreation: new Date(),
+      isCompleted: false
+    });
+   navigate("/");
   }
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%'}}>
@@ -82,8 +98,8 @@ const TodoForm: FC = () => {
             <Input
             type="text"
             placeholder="Add new todo"
-            value={nom}
-            onChange={(e) => setnom(e.target.value)}
+            value={text}
+            onChange={handlechange}
           />
            </div>
            <Button onClick={onSubmit} >Add <FaPlus size={15}/></Button>

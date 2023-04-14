@@ -8,9 +8,9 @@ import { deleteToDo, done, modify, todo } from '../Redux/todoSlice';
 
 
 interface TodoItemProps {
-      id: number,
+      id: number| string,
       text: string,
-      dateCreation: Date,
+      dateCreation: Date | string,
       isCompleted: boolean
 }
 
@@ -98,25 +98,25 @@ const TodoText = styled.span`
 const TodoItem: React.FC<TodoItemProps> = ({ id, text, dateCreation, isCompleted}) => {
   const dispatch =useDispatch();
   const handleToggle = () => {
-    if(!isCompleted)
-      dispatch(done(id));
-    if(isCompleted)
-      dispatch(todo(id));
+    // if(!isCompleted)
+    //   dispatch(done(id));
+    // if(isCompleted)
+    //   dispatch(todo(id));
     // onToggle(id);
   };
   const [nom, setnom] = useState<string>(text);
   const [editingText, setEditingText] = useState<string>(text);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const handleModify = () => {
-    if (isEditing) {
-      dispatch(modify({ id: id, nom: nom , dateCreation: dateCreation, isCompleted: isCompleted}));
-      setIsEditing(false);
-    } else {
-      setIsEditing(true);
-    }
+  //   if (isEditing) {
+  //     dispatch(modify({ id: id, nom: nom , dateCreation: dateCreation, isCompleted: isCompleted}));
+  //     setIsEditing(false);
+  //   } else {
+  //     setIsEditing(true);
+  //   }
   };
   const handleDelete = () => {
-    dispatch(deleteToDo(id));
+    // dispatch(deleteToDo(id));
     // onDelete(todo.id);
   };
 
@@ -136,7 +136,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ id, text, dateCreation, isCompleted
     ) : (
       <>
         <TodoText>{text}</TodoText>
-        <TodoText>{dateCreation.toLocaleDateString()}</TodoText>
+        <TodoText>date</TodoText>
         <ModifyButton onClick={() => setIsEditing(true)}>
           <BsPencil />
         </ModifyButton>

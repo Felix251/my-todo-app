@@ -4,7 +4,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 export  interface Todo {
       id: number,
       nom: string,
-      dateCreation: Date ,
+      dateCreation: Date |string ,
       isCompleted: boolean
     }
 export interface todosState {
